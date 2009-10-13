@@ -20,18 +20,7 @@ var GearsUploader = new Class({
     options :{
         progressBar: null,
         statusElement: null,
-        statuses: {
-            'noFiles': 'Please select some files to upload.',
-            'alreadyUploaded': 'Files was already uploaded.',
-            'processing': 'Processing files..',
-            'selected': 'Files are selected.',
-
-            'stateUninitialized': 'Initializing..',
-            'stateOpen': 'Uploading files..',
-            'stateSent': 'Files are uploaded, waiting for server response..',
-            'stateInteractive': 'Reading server response..',
-            'stateComplete': 'Files are uploaded.'
-        },
+        statuses: {},
         verboseProcessing: true,
         queueProcessing: true,
         uploadHandler: 'upload-handler',
@@ -241,18 +230,7 @@ var GearsSingleFileUploader = new Class({
         fileOpenOptions: {
             singleFile: true
         },
-        statuses: {
-            'noFiles': 'Please select file to upload.',
-            'alreadyUploaded': 'File was already uploaded.',
-            'processing': 'Processing file..',
-            'selected': 'File is selected.',
-
-            'stateUninitialized': 'Initializing..',
-            'stateOpen': 'File is being uploaded..',
-            'stateSent': 'File is uploaded, waiting for server response..',
-            'stateInteractive': 'Reading server response..',
-            'stateComplete': 'File is uploaded.'
-        }
+        statuses: {}
     },
 
     getFileElementName: function(index){

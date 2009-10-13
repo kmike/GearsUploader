@@ -60,18 +60,7 @@ var GearsImageUploader = new Class({
     Implements: GearsImageUtilsMixin,
 
     options :{
-        statuses: {
-            'noFiles': 'Please select some files to upload.',
-            'alreadyUploaded': 'Images was already uploaded.',
-            'processing': 'Processing images..',
-            'selected': 'Images are selected.',
-
-            'stateUninitialized': 'Initializing..',
-            'stateOpen': 'Uploading images..',
-            'stateSent': 'Images are uploaded, waiting for server response..',
-            'stateInteractive': 'Reading server response..',
-            'stateComplete': 'Images are uploaded.'
-        },
+        statuses: {},
 
         maxWidth: 600,
         previewWidth: null,
@@ -136,18 +125,7 @@ var GearsSingleImageUploader = new Class({
     options: {
         verboseProcessing: false,
         fileElementName: 'image',
-        statuses: {
-            'noFiles': 'Image is not selected.',
-            'alreadyUploaded': 'This image is already uploaded.',
-            'processing': 'Processing an image..',
-            'selected': 'Image is selected.',
-
-            'stateUninitialized': 'Initializing..',
-            'stateOpen': 'Uploading image..',
-            'stateSent': 'Waiting for server response..',
-            'stateInteractive': 'Reading server response..',
-            'stateComplete': 'Image is uploaded.'
-        },
+        statuses: {},
         fileOpenOptions: {
             filter : ['image/jpeg', 'image/png'],
             singleFile: true
