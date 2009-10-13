@@ -98,5 +98,3 @@ var ProgressBar = new Class({
     }
 
 });
-
-
