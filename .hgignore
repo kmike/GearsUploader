@@ -11,9 +11,6 @@ nbproject/*
 build.properties
 MANIFEST.MF
 
-#svn
-#.svn/
-
 #temp files
 *.pyc
 *.pyo
@@ -31,3 +28,5 @@ Thumbs.db
 stuff/
 .git/
 .gitignore
+
+wiki/
