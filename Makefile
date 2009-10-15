@@ -1,9 +1,12 @@
 YUI = ~/dev/yuicompressor-2.4.2.jar --charset=UTF-8
 BUILD = GearsUploader/build
 
-ProgressBar = GearsUploader/ProgressBar.js 
+ProgressBar = GearsUploader/external/ProgressBar.js 
+GearsInit = GearsUploader/external/gears_init.js
+MooMore = GearsUploader/external/Element.Shortcuts.js
+
 GearsUploader = GearsUploader/GearsMultipartForm.js GearsUploader/GearsUploader.js GearsUploader/GearsImageUploader.js GearsUploader/DjangoUploader.js
-Complete = $(ProgressBar) GearsUploader/gears_init.js $(GearsUploader)
+Complete = $(MooMore) $(ProgressBar) $(GearsInit) $(GearsUploader)
 
 all: cleanup ru-complete en-complete
 
