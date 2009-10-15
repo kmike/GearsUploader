@@ -1,0 +1,23 @@
+
+.container {overflow:hidden;}
+.clear {clear: both;}
+
+/* Progress bar styles */
+#progress-bar {
+    border:1px solid Lavender;
+    width:280px;
+    height:16px;
+    margin: 8px 0px 8px 0px;
+    float:left;
+    display:none;
+}
+#progress-bar-box-id {float:left; width: 100%;}
+#progress-bar-percentage-id { background: RoyalBlue; height:16px; }
+#progress-bar-display-id {color:black; padding-left: 288px;}
+
+/* Uploader */
+
+.gears-upload { display: none;}
+#upload-handler { display: none;}
+
+#thumbs img {width: 100px;}

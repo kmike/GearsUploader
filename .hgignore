@@ -29,4 +29,5 @@ stuff/
 .git/
 .gitignore
 
-wiki/
+static/images/
+db.sqlite

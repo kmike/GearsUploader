@@ -1,0 +1,21 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link href='/static/css/style.css' rel='stylesheet' type='text/css'>
+        <title>GearsUploader example</title>
+    </head>
+    <body>
+        <h1>GearsUploader+Django simple demo</h1>
+        <a href='{% url view_images %}'>View images</a> |
+        <a href='{% url upload_one_image %}'>Upload one image</a> |
+        <a href='{% url upload_images %}'>Upload several images</a> |
+        <hr>
+        {% block content %}{% endblock %}
+
+        <script src='/static/js/mootools-1.2.3-core-yc.js'></script>
+        <script src='/static/js/GearsUploader.en.js'></script>
+        <script src='/static/js/example.js'></script>
+        {% block js %}{% endblock %}
+    </body>
+</html>

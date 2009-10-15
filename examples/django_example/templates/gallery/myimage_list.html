@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% for image in object_list %}
+        <img src='/static/{{image.img}}'>
+    {% endfor %}
+{% endblock %}

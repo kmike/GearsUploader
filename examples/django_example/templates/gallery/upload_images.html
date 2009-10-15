@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <form method='post' action='' enctype='multipart/form-data' class='standard-upload'>
+        <table>
+            {{ formset }}
+        </table>
+        <input type='submit' value='Upload images'>
+    </form>
+
+    <div class='gears-upload' id='upload-images'>
+        <input type='button' value='Select images to upload' id='select-handler'>
+        <input type='button' value='Upload images' id='upload-handler'>
+
+        <span id='upload-status'></span>
+
+        <div class='container'>
+            <div id='progress-bar'></div>
+            <div class='clear'></div>
+        </div>
+
+        <div id='thumbs'></div>
+    </div>
+{% endblock %}
+
