@@ -1,5 +1,3 @@
-# Create your views here.
-
 from django.http import HttpResponseRedirect, HttpResponse
 from django.views.generic.simple import direct_to_template
 from django.views.generic.list_detail import object_list
@@ -28,13 +26,9 @@ def upload_one_image(request):
         form = MyImageForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            print 'yes!'
             return HttpResponseRedirect('/') # Redirect after POST
-        print 'no!'
-        print form.errors
     else:
         form = MyImageForm()
-    print 'aa!'
     return direct_to_template(request, 'gallery/upload_one_image.html', {'form': form})
 
 
