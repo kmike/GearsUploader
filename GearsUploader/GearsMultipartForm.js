@@ -3,21 +3,25 @@
  *
  * Javascript multipart form class.
  * Can be used for emulating classic html form
- * submissions (with text fields and file fields).
+ * submissions (with text fields and file fields)
+ * according to rfc2388.
+ *
+ * Limitation: `multipart/mixed` part or rfc2388 is
+ * not implemented (several files as one form entry).
+ * Don't know if it is used anywhere.
  *
  * Built for Google Gears >= 0.5.21, does not require any js library.
  *
  * Author: Mikhail Korobov
  * License: MIT
  *
- *
  * Example:
 
  var desktop = google.gears.factory.create('beta.desktop');
  desktop.openFiles(function(files){
     var form = new GearsMultipartForm({
-        files: {'myfile': files[0]},
-        fields: {'input1': 'any text', 'input2': 'any text'}
+        files: {'myFile1': files[0]},
+        fields: {'myInput': 'value', 'mySelect': ['value1', 'value2']}
     });
     form.post('my_url');
  });
@@ -40,6 +44,7 @@ var GearsMultipartForm = function(options){
 
         // text form fields
         // {'field name': 'text content'}
+        // {'field name': ['value1', 'value2']}
         fields: {}
     };
 
@@ -53,22 +58,22 @@ var GearsMultipartForm = function(options){
     this.buildData = function(boundary)
     {
         var crlf = '\r\n';
-
         var builder = google.gears.factory.create('beta.blobbuilder');
+        var self=this;
 
-        for (name in this.options.fields){
-            var text = this.options.fields[name];
+        function addTextField(name, text)
+        {
             builder.append('--'+boundary+crlf);
-            builder.append(this.getContentDispositionHeader(name)+crlf);
+            builder.append(self.getContentDispositionHeader(name)+crlf);
             builder.append(crlf);
             builder.append(text);
             builder.append(crlf);
         }
 
-        for (name in this.options.files){
-            var file = this.options.files[name];
+        function addFileField(name, file)
+        {
             builder.append('--'+boundary+crlf);
-            builder.append(this.getContentDispositionHeader(name, file.name)+crlf);
+            builder.append(self.getContentDispositionHeader(name, file.name)+crlf);
             var mime = 'application/octet-stream';
             if ('mime' in file)
                 mime = file.mime;
@@ -77,16 +82,31 @@ var GearsMultipartForm = function(options){
             builder.append(crlf);
         }
 
+        for (name in this.options.fields){
+            var value = this.options.fields[name];
+            if (value.constructor != Array) // single value
+                value = [value];
+            for (var i=0; i<value.length; i++)
+                addTextField(name, value[i]);
+        }
+
+        for (name in this.options.files){
+            var file = this.options.files[name];
+            addFileField(name, file);
+        }
+
         builder.append('--'+boundary+'--'+crlf);
         return builder.getAsBlob();
     }
 
     this.getContentDispositionHeader = function(name, filename)
     {
-        // in rfc 2388 it is stated that filename should be rfc2047-encoded, but
-        // it seems that current browsers do not encode them and thus encoding
-        // confuse existing server scripts, so we pass filename as-is.
-
+        /*
+         in rfc 2388 (paragraph 5.4) it is stated that filename should be
+         rfc2047-encoded, but it seems that current browsers do not encode
+         them and thus encoding confuse existing server scripts, so pass
+         filename as-is.
+        */
         var res = 'Content-Disposition: form-data; name="'+name+'"';
         if (filename)
             res = res + '; filename="' + filename + '"';
@@ -101,8 +121,8 @@ var GearsMultipartForm = function(options){
         return 'Content-Type:'+type+ this.crlf;
     }
 
-    this.post = function(url){
-
+    this.generateBoundary = function()
+    {
         // smth. like firefox behaviour for constructing boundary string
         function randomString(len) {
             var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
@@ -113,7 +133,12 @@ var GearsMultipartForm = function(options){
             }
             return randomstring;
         }
-        var boundary = '-------------------------'+randomString(24);
+        return '-------------------------'+randomString(24);
+    }
+
+    this.post = function(url){
+
+        var boundary = this.generateBoundary();
 
         this.request = google.gears.factory.create('beta.httprequest');
         this.request.upload.onprogress = this.options.onprogress;
