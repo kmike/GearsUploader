@@ -155,7 +155,10 @@ var GearsUploader = new Class({
             }, self.options.fileOpenOptions);
         });
 
-        $(self.options.uploadHandler).addEvent('click', function(ev){
+        var uploadHandler = $(self.options.uploadHandler);
+        uploadHandler.store('originalDisplay', uploadHandler.getStyle('display'));
+
+        uploadHandler.addEvent('click', function(ev){
             ev.stop();
             if (self.alreadyUpladed)
             {
@@ -201,7 +204,7 @@ var GearsUploader = new Class({
             form.post(self.options.url);
         });
         if (self.options.hideUploadHandler)
-            $(self.options.uploadHandler).hide();
+            uploadHandler.hide();
     },
 
 
