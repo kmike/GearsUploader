@@ -29,5 +29,7 @@ stuff/
 .git/
 .gitignore
 
+GNUmakefile
+
 static/images/
 db.sqlite
