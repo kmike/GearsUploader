@@ -51,7 +51,11 @@ this.GearsUploader = new Class({
 
         onUploadComplete: function(){
             this.setStatus('stateComplete');
-        }
+        },
+
+        onBeforeProcess: $empty,
+        onAfterProcess: $empty,
+        onBeforeUpload: $empty
 
     },
 
@@ -110,6 +114,7 @@ this.GearsUploader = new Class({
 
     handleFilesOpen : function(files){
         var self = this;
+        self.fireEvent('beforeProcess');
         if (this.options.queueProcessing) {
             function doQueue(index){
 
@@ -137,6 +142,7 @@ this.GearsUploader = new Class({
             });
             self.setStatus('selected');
             $(self.options.uploadHandler).show();
+            self.fireEvent('afterProcess');
         }
     },
 
@@ -151,7 +157,6 @@ this.GearsUploader = new Class({
                     return;
                 self.alreadyUploaded = false;
                 self.hideProgressBar();
-
                 self.handleFilesOpen(files);
 
             }, self.options.fileOpenOptions);
@@ -203,6 +208,7 @@ this.GearsUploader = new Class({
                     }
                 }
             });
+            self.fireEvent('beforeUpload');
             form.post(self.options.url);
         });
         if (self.options.hideUploadHandler)
