@@ -400,6 +400,8 @@ var GearsUploader = new Class({
         fileOpenOptions: {singleFile: false},
         url: '.',
         fileElementName: 'file',
+        formElement: null,
+        hideUploadHandler: true,
 
         onUploadUninitialized: function(){
             this.setStatus('stateUninitialized');
@@ -442,8 +444,34 @@ var GearsUploader = new Class({
         return formFiles;
     },
 
+    getExistingFormFields: function(){
+        if (this.options.formElement == null)
+            return {};
+
+        var form = $(this.options.formElement);
+        if (!form)
+            return {};
+
+        var fields = {};
+        form.getElements('input, textarea').each(function(elem){
+            if (elem.name && elem.value != '') {
+                fields[elem.name] = elem.value;
+            }
+        });
+        form.getElements('select').each(function(elem){
+            var opts = [];
+            $each(elem.options, function(opt){
+                if (opt.selected)
+                    opts.push(opt.value);
+            });
+            if (opts)
+                fields[elem.name] = opts;
+        });
+        return fields;
+    },
+
     getFormFields: function(){
-        return {};
+        return this.getExistingFormFields();
     },
 
     handleFile: function(file){
@@ -543,8 +571,9 @@ var GearsUploader = new Class({
                 }
             });
             form.post(self.options.url);
-        }).hide();
-
+        });
+        if (self.options.hideUploadHandler)
+            $(self.options.uploadHandler).hide();
     },
 
 
@@ -799,7 +828,7 @@ var DjangoFormsetMixin = new Class({
     },
 
     getFormFields: function(){
-        return this.getManagementFields();
+        return $merge(this.getExistingFormFields(), this.getManagementFields());
     }
 });
 
