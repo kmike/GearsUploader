@@ -37,7 +37,7 @@ var DjangoFormsetMixin = new Class({
     },
 
     getFormFields: function(){
-        return this.getManagementFields();
+        return $merge(this.getExistingFormFields(), this.getManagementFields());
     }
 });
 
