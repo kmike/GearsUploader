@@ -1,3 +1,5 @@
+(function($){  //$-safe plugin
+
 /*
  * DjangoUploader and DjangoImageUploader classes.
  *
@@ -13,7 +15,7 @@
  *
  */
 
-var DjangoFormsetMixin = new Class({
+this.DjangoFormsetMixin = new Class({
     options: {
         formsetPrefix: 'form'
     },
@@ -41,14 +43,16 @@ var DjangoFormsetMixin = new Class({
     }
 });
 
-var DjangoUploader = new Class({
+this.DjangoUploader = new Class({
     Extends: GearsUploader,
     Implements: DjangoFormsetMixin
 });
 
 if (window.GearsImageUploader) {
-    var DjangoImageUploader = new Class({
+    this.DjangoImageUploader = new Class({
         Extends: GearsImageUploader,
         Implements: DjangoFormsetMixin
     });
 }
+
+})(document.id); // end $-safe plugin

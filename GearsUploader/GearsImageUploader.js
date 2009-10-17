@@ -1,3 +1,5 @@
+(function($){  //$-safe plugin
+
 /**
  * GearsImageUploader class
  *
@@ -16,7 +18,8 @@
  *
  */
 
-var GearsImageUtilsMixin = new Class({
+
+this.GearsImageUtilsMixin = new Class({
 
     canvasFromBlob: function(blob, maxWidth){
         var canvas = google.gears.factory.create('beta.canvas');
@@ -55,7 +58,7 @@ var GearsImageUtilsMixin = new Class({
 });
 
 
-var GearsImageUploader = new Class({
+this.GearsImageUploader = new Class({
     Extends: GearsUploader,
     Implements: GearsImageUtilsMixin,
 
@@ -118,7 +121,7 @@ var GearsImageUploader = new Class({
     }
 });
 
-var GearsSingleImageUploader = new Class({
+this.GearsSingleImageUploader = new Class({
 
     Extends: GearsImageUploader,
 
@@ -149,3 +152,5 @@ var GearsSingleImageUploader = new Class({
         return img;
     }
 });
+
+})(document.id); // end $-safe plugin

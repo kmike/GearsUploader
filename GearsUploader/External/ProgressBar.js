@@ -1,14 +1,16 @@
+(function($){  //$-safe plugin
+
 /*
     Class:        ProgressBar
     Author:       David Walsh
     Website:    http://davidwalsh.name
     Version:      3.0
     Date:         2/1/2009
-    Built For:  MooTools 1.2
+    Updated:      17/10/2009 by Mikhail Korobov to make it $-safe
+    Built For:  MooTools 1.2.3
 */
 
-
-var ProgressBar = new Class({
+this.ProgressBar = new Class({
 
     //implements
     Implements: [Events, Options],
@@ -98,3 +100,5 @@ var ProgressBar = new Class({
     }
 
 });
+
+})(document.id); // end $-safe plugin

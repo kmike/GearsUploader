@@ -25,17 +25,19 @@ Element.implement({
         return this.setStyle('display', display || this.retrieve('originalDisplay') || 'block');
     }
 });
+(function($){  //$-safe plugin
+
 /*
     Class:        ProgressBar
     Author:       David Walsh
     Website:    http://davidwalsh.name
     Version:      3.0
     Date:         2/1/2009
-    Built For:  MooTools 1.2
+    Updated:      17/10/2009 by Mikhail Korobov to make it $-safe
+    Built For:  MooTools 1.2.3
 */
 
-
-var ProgressBar = new Class({
+this.ProgressBar = new Class({
 
     //implements
     Implements: [Events, Options],
@@ -125,6 +127,8 @@ var ProgressBar = new Class({
     }
 
 });
+
+})(document.id); // end $-safe plugin
 // Copyright 2007, Google Inc.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -370,6 +374,8 @@ var GearsMultipartForm = function(options){
     }
 
 };
+(function($){  //$-safe plugin
+
 /**
  * GerasUploader and GearsSingleFileUploader classes.
  *
@@ -385,7 +391,7 @@ var GearsMultipartForm = function(options){
  *
  */
 
-var GearsUploader = new Class({
+this.GearsUploader = new Class({
 
     Implements: [Options, Events],
 
@@ -626,7 +632,7 @@ var GearsUploader = new Class({
 });
 
 
-var GearsSingleFileUploader = new Class({
+this.GearsSingleFileUploader = new Class({
     Extends: GearsUploader,
 
     options: {
@@ -641,6 +647,10 @@ var GearsSingleFileUploader = new Class({
         return this.options.fileElementName;
     }
 });
+
+})(document.id); // end $-safe plugin
+(function($){  //$-safe plugin
+
 /**
  * GearsImageUploader class
  *
@@ -659,7 +669,8 @@ var GearsSingleFileUploader = new Class({
  *
  */
 
-var GearsImageUtilsMixin = new Class({
+
+this.GearsImageUtilsMixin = new Class({
 
     canvasFromBlob: function(blob, maxWidth){
         var canvas = google.gears.factory.create('beta.canvas');
@@ -698,7 +709,7 @@ var GearsImageUtilsMixin = new Class({
 });
 
 
-var GearsImageUploader = new Class({
+this.GearsImageUploader = new Class({
     Extends: GearsUploader,
     Implements: GearsImageUtilsMixin,
 
@@ -761,7 +772,7 @@ var GearsImageUploader = new Class({
     }
 });
 
-var GearsSingleImageUploader = new Class({
+this.GearsSingleImageUploader = new Class({
 
     Extends: GearsImageUploader,
 
@@ -792,6 +803,10 @@ var GearsSingleImageUploader = new Class({
         return img;
     }
 });
+
+})(document.id); // end $-safe plugin
+(function($){  //$-safe plugin
+
 /*
  * DjangoUploader and DjangoImageUploader classes.
  *
@@ -807,7 +822,7 @@ var GearsSingleImageUploader = new Class({
  *
  */
 
-var DjangoFormsetMixin = new Class({
+this.DjangoFormsetMixin = new Class({
     options: {
         formsetPrefix: 'form'
     },
@@ -835,17 +850,19 @@ var DjangoFormsetMixin = new Class({
     }
 });
 
-var DjangoUploader = new Class({
+this.DjangoUploader = new Class({
     Extends: GearsUploader,
     Implements: DjangoFormsetMixin
 });
 
 if (window.GearsImageUploader) {
-    var DjangoImageUploader = new Class({
+    this.DjangoImageUploader = new Class({
         Extends: GearsImageUploader,
         Implements: DjangoFormsetMixin
     });
 }
+
+})(document.id); // end $-safe plugin
 /**
  * English localization for uploader classes.
  *

@@ -1,3 +1,5 @@
+(function($){  //$-safe plugin
+
 /**
  * GerasUploader and GearsSingleFileUploader classes.
  *
@@ -13,7 +15,7 @@
  *
  */
 
-var GearsUploader = new Class({
+this.GearsUploader = new Class({
 
     Implements: [Options, Events],
 
@@ -254,7 +256,7 @@ var GearsUploader = new Class({
 });
 
 
-var GearsSingleFileUploader = new Class({
+this.GearsSingleFileUploader = new Class({
     Extends: GearsUploader,
 
     options: {
@@ -269,3 +271,5 @@ var GearsSingleFileUploader = new Class({
         return this.options.fileElementName;
     }
 });
+
+})(document.id); // end $-safe plugin
