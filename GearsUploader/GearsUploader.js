@@ -33,30 +33,15 @@ this.GearsUploader = new Class({
         formElement: null,
         hideUploadHandler: true,
 
-        onUploadUninitialized: function(){
-            this.setStatus('stateUninitialized');
-        },
-
-        onUploadOpen: function(){
-            this.setStatus('stateOpen');
-        },
-
-        onUploadSent: function(){
-            this.setStatus('stateSent');
-        },
-
-        onUploadInteractive: function(){
-            this.setStatus('stateInteractive');
-        },
-
-        onUploadComplete: function(){
-            this.setStatus('stateComplete');
-        },
+        onUploadUninitialized: $empty,
+        onUploadOpen: $empty,
+        onUploadSent: $empty,
+        onUploadInteractive: $empty,
+        onUploadComplete: $empty,
 
         onBeforeProcess: $empty,
         onAfterProcess: $empty,
         onBeforeUpload: $empty
-
     },
 
     initialize: function(options) {
@@ -184,26 +169,34 @@ this.GearsUploader = new Class({
                 fields: self.getFormFields(),
                 onprogress: function(e){
                     if (e.lengthComputable)
-                        self.setProgress(e.loaded / e.total * 100);
+                        self.setProgress(e.loaded / e.total * 85);
                 },
                 onreadystatechange: function()
                 {
                     switch (form.request.readyState){
                         case 0: // Uninitialized
+                            self.setStatus('stateUninitialized');
                             self.fireEvent('uploadUninitialized');
                             break;
                         case 1: // Open
+                            self.setStatus('stateOpen');
                             self.fireEvent('uploadOpen');
                             break;
                         case 2: // Sent
+                            self.setStatus('stateSent');
+                            self.setProgress(90);
                             self.fireEvent('uploadSent');
                             break;
                         case 3: // Interactive
+                            self.setStatus('stateInteractive');
+                            self.setProgress(95);
                             self.fireEvent('uploadInteractive');
                             break;
                         case 4: // Complete
-                            self.fireEvent('uploadComplete');
+                            self.setStatus('stateComplete');
                             self.alreadyUploaded = true;
+                            self.setProgress(100);
+                            self.fireEvent('uploadComplete');
                             break;
                     }
                 }
