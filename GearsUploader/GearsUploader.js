@@ -33,15 +33,17 @@ this.GearsUploader = new Class({
         formElement: null,
         hideUploadHandler: true,
 
+        onFileSelect: $empty,
+
+        onBeforeProcess: $empty,
+        onAfterProcess: $empty,
+        onBeforeUpload: $empty,
+
         onUploadUninitialized: $empty,
         onUploadOpen: $empty,
         onUploadSent: $empty,
         onUploadInteractive: $empty,
-        onUploadComplete: $empty,
-
-        onBeforeProcess: $empty,
-        onAfterProcess: $empty,
-        onBeforeUpload: $empty
+        onUploadComplete: $empty
     },
 
     initialize: function(options) {
@@ -145,6 +147,7 @@ this.GearsUploader = new Class({
                 self.handleFilesOpen(files);
 
             }, self.options.fileOpenOptions);
+            self.fireEvent('onFileSelect');
         });
 
         var uploadHandler = $(self.options.uploadHandler);
