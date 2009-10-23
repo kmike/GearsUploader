@@ -147,7 +147,7 @@ this.GearsUploader = new Class({
                 self.handleFilesOpen(files);
 
             }, self.options.fileOpenOptions);
-            self.fireEvent('onFileSelect');
+            self.fireEvent('fileSelect');
         });
 
         var uploadHandler = $(self.options.uploadHandler);
@@ -193,13 +193,13 @@ this.GearsUploader = new Class({
                         case 3: // Interactive
                             self.setStatus('stateInteractive');
                             self.setProgress(95);
-                            self.fireEvent('uploadInteractive');
+                            self.fireEvent('uploadInteractive', form.request);
                             break;
                         case 4: // Complete
                             self.setStatus('stateComplete');
                             self.alreadyUploaded = true;
                             self.setProgress(100);
-                            self.fireEvent('uploadComplete');
+                            self.fireEvent('uploadComplete', form.request);
                             break;
                     }
                 }
