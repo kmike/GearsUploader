@@ -76,14 +76,18 @@ this.GearsUploader = new Class({
         var fields = {};
         form.getElements('input, textarea').each(function(elem){
             if (elem.name && elem.value != '') {
-                fields[elem.name] = elem.value;
+                var type = elem.getProperty('type');
+                if (!type || type=='hidden' || type=='password' || type == 'text' || type=='textarea')
+                    fields[elem.name] = elem.value;
+                else if (type='checkbox' || type == 'radio')
+                    if (elem.checked)
+                        fields[elem.name] = elem.value;
             }
         });
         form.getElements('select').each(function(elem){
             var opts = [];
-            $each(elem.options, function(opt){
-                if (opt.selected)
-                    opts.push(opt.value);
+            elem.getSelected().each(function(opt){
+                opts.push(opt.value)
             });
             if (opts)
                 fields[elem.name] = opts;
