@@ -8,7 +8,7 @@ MooMore = GearsUploader/external/Element.Shortcuts.js
 GearsUploader = GearsUploader/GearsMultipartForm.js GearsUploader/GearsUploader.js GearsUploader/GearsImageUploader.js GearsUploader/DjangoUploader.js
 Complete = $(MooMore) $(ProgressBar) $(GearsInit) $(GearsUploader)
 
-all: cleanup ru-complete en-complete prepare-examples
+all: cleanup ru-complete en-complete pl-complete prepare-examples
 
 cleanup:
 	rm $(BUILD)/*
@@ -21,6 +21,10 @@ en-complete: $(Complete) GearsUploader/Localization/en.js
 	cat $+ > GearsUploader/build/GearsUploader.en.js
 	java -jar $(YUI) $(BUILD)/GearsUploader.en.js > $(BUILD)/GearsUploader.en.yui.js
 
-prepare-examples: ru-complete en-complete
+pl-complete: $(Complete) GearsUploader/Localization/pl.js
+	cat $+ > GearsUploader/build/GearsUploader.pl.js
+	java -jar $(YUI) $(BUILD)/GearsUploader.pl.js > $(BUILD)/GearsUploader.pl.yui.js
+
+prepare-examples: ru-complete en-complete pl-complete
 	cp $(BUILD)/GearsUploader.en.js examples/django_example/static/js
 	
